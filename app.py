@@ -448,9 +448,11 @@ if menu == "Accessories":
 
     st.header("Laptop Accessories")
 
-    # Custom CSS
+    # CSS
     st.markdown("""
     <style>
+
+    /* Selectbox Styling */
     div[data-baseweb="select"] > div {
         background-color: #1e1e1e;
         color: white;
@@ -458,30 +460,51 @@ if menu == "Accessories":
         border-radius: 12px;
     }
 
-    div[data-baseweb="popover"] {
-        background-color: #111827;
+    /* Item Cards */
+    .item-card {
+        background-color: #1e1e1e;
+        padding: 15px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        border: 1px solid #333;
         color: white;
+        font-size: 18px;
+        transition: 0.3s;
     }
+
+    .item-card:hover {
+        border: 1px solid red;
+        transform: scale(1.02);
+    }
+
     </style>
     """, unsafe_allow_html=True)
 
+    # Accessory Type
     accessory_type = st.selectbox(
         "Select Accessory Type",
         list(accessory_data.keys())
     )
 
-    # Second dropdown for items
+    # Brand Select
     selected_brand = st.selectbox(
         "Select Brand",
         list(accessory_data[accessory_type].keys())
     )
 
-    selected_item = st.selectbox(
-        "Select Item",
-        accessory_data[accessory_type][selected_brand]
-    )
+    st.subheader("Available Items")
 
-    st.success(f"You selected: {selected_item}")
+    # Show Items as List Cards
+    for item in accessory_data[accessory_type][selected_brand]:
+
+        st.markdown(
+            f"""
+            <div class="item-card">
+                {item}
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
 # ================= FAQS =================
 
