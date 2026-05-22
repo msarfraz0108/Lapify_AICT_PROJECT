@@ -448,17 +448,40 @@ if menu == "Accessories":
 
     st.header("Laptop Accessories")
 
+    # Custom CSS
+    st.markdown("""
+    <style>
+    div[data-baseweb="select"] > div {
+        background-color: #1e1e1e;
+        color: white;
+        border: 1px solid red;
+        border-radius: 12px;
+    }
+
+    div[data-baseweb="popover"] {
+        background-color: #111827;
+        color: white;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
     accessory_type = st.selectbox(
         "Select Accessory Type",
         list(accessory_data.keys())
     )
 
-    for brand, items in accessory_data[accessory_type].items():
+    # Second dropdown for items
+    selected_brand = st.selectbox(
+        "Select Brand",
+        list(accessory_data[accessory_type].keys())
+    )
 
-        st.markdown(f"### {brand}")
+    selected_item = st.selectbox(
+        "Select Item",
+        accessory_data[accessory_type][selected_brand]
+    )
 
-        for item in items:
-            st.write(f"• {item}")
+    st.success(f"You selected: {selected_item}")
 
 # ================= FAQS =================
 
